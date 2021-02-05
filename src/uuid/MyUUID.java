@@ -74,6 +74,12 @@ final public class MyUUID implements Comparable<MyUUID> {
     }
 
 
+    public static void main(String[] args) {
+        MyUUID one = new MyUUID("or");
+        System.out.println(one);
+        System.out.println(decoder(one));
+
+    }
 
 
 
