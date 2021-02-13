@@ -100,17 +100,15 @@ public class Bfs<T extends Igraph<R>, R> {
 
     public static void main(String[] args) {
         int[][] source = {
-                {1,1,1},
-                {1,0,1},
-                {1,1,1},
+                {1,0,0},
+                {1,0,0},
+                {1,0,0},
 
         };
         Matrix matrix = new Matrix(source);
-        Bfs<Matrix, Index> bfs = new Bfs<>(matrix);
-        int a = bfs.getShortstDistance(new Index(0, 0), new Index(2, 1));
-        System.out.println(a);
-        LinkedList<LinkedList<Index>> findShortestPaths = bfs.findShortestPaths(new Index(0, 0), new Index(0, 1));
-        System.out.println(findShortestPaths);
+        LinkedList<Index> getAllNodes = matrix.getAllNodes();
+        System.out.println(getAllNodes);
+        
     }
 
 

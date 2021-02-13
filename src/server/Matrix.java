@@ -98,4 +98,22 @@ public class Matrix implements Serializable, Igraph<Index> {
 
     }
 
+    public LinkedList<Index> getAllNodes() {
+        LinkedList<Index> allNodes = new LinkedList<>();
+
+        for (int i = 0; i <this.primitiveMatrix.length ; i++)
+        {
+            for (int j = 0; j <this.primitiveMatrix[0].length ; j++) {
+                if (this.primitiveMatrix[i][j] == 1) {
+                    allNodes.add(new Index(i, j));
+                }
+
+            }
+
+        }
+        return allNodes;
+    }
+
+
+
 }
