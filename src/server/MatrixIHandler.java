@@ -1,8 +1,11 @@
 package server;
 
+import algorithms.Bfs;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 public class MatrixIHandler implements IHandler {
 
@@ -37,6 +40,7 @@ public class MatrixIHandler implements IHandler {
                     int[][] primitiveMatrix = (int[][]) objectInputStream.readObject();
                     this.matrix = new Matrix(primitiveMatrix);
                     this.matrix.printMatrix();
+
                     break;
                 }
                 case "start index": {
@@ -47,18 +51,24 @@ public class MatrixIHandler implements IHandler {
                     this.end = (Index) objectInputStream.readObject();
                     break;
                 }
-                case "TaskOne": {
-                    Index indexAdjacentIndices = (Index) objectInputStream.readObject();
-                    Collection<Index> adjacentIndices = new ArrayList<>();
-                    if (this.matrix != null){
-                        adjacentIndices.addAll(this.matrix.getAdjacentIndices(indexAdjacentIndices));
+                case "shortest path": {
+                    
+                    
+                    if (this.matrix.isSizeValid(50) == false) {
+                        throw new IllegalArgumentException("input not valid");
                     }
-                    System.out.println("result: " + adjacentIndices);
-                    objectOutputStream.writeObject(adjacentIndices);
+                    Bfs<Matrix, Index> bfs = new Bfs<>(this.matrix);
+
+                    LinkedList<LinkedList<Index>> paths = new LinkedList<>();
+                    paths = bfs.findShortestPaths(this.start, this.end);
+                    objectOutputStream.writeObject(paths);
+
+
+
                     break;
                 }
                 case "TaskTwo": {
-                    Index start = (Index) objectInputStream.readObject();
+                 //   Index start = (Index) objectInputStream.readObject();
                     Collection<Index> reachables = new ArrayList<>();
                     if (this.matrix != null){
                         reachables.addAll(this.matrix.getReachables(start));
