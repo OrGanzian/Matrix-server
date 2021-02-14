@@ -7,7 +7,7 @@ import server.Matrix;
 import java.util.LinkedList;
 import java.util.Stack;
 
-public class Dfs<T extends Igraph<Index>>  {
+public class Dfs<T extends Igraph<R>, R> {
 
     T graph;
 
@@ -15,23 +15,21 @@ public class Dfs<T extends Igraph<Index>>  {
         this.graph = graph;
     }
 
-    LinkedList<Index> getSccByNode(Index index) {
-        LinkedList<Index> visited = new LinkedList<>();
-        Stack<Index> stack = new Stack<>();
+    public LinkedList<R> getSccByNode(R node) {
+        LinkedList<R> visited = new LinkedList<>();
+        Stack<R> stack = new Stack<>();
 
-        stack.add(index);
-        visited.add(index);
+        stack.add(node);
+        visited.add(node);
 
         while (!stack.isEmpty()) {
-            Index curr = stack.pop();
+            R curr = stack.pop();
 
-            LinkedList<Index> currNeighbors = (LinkedList<Index>) this.graph.getReachables(curr);
+            LinkedList<R> currNeighbors = (LinkedList<R>) this.graph.getReachables(curr);
             if (currNeighbors.isEmpty()) {
                 continue;
-            }
-            else
-                {
-                for (Index i : currNeighbors) {
+            } else {
+                for (R i : currNeighbors) {
                     if (visited.contains(i)) {
                         continue;
                     }
@@ -44,18 +42,43 @@ public class Dfs<T extends Igraph<Index>>  {
         return visited;
     }
 
+    public LinkedList<LinkedList<R>> getAllScc() {
+
+        LinkedList<LinkedList<R>> allScc = new LinkedList<>();
+        LinkedList<R> allNodes= (LinkedList<R>) this.graph.getAllNodes();
+
+        while (!allNodes.isEmpty()) {
+
+            R curr = allNodes.getFirst();
+            LinkedList<R> listToPush = this.getSccByNode(curr);
+
+            for (R i : listToPush) {
+                allNodes.remove(i);
+
+            }
+            allScc.add(listToPush);
+        }
+
+        return allScc;
+
+    }
+
 
     public static void main(String[] args) {
         int[][] source = {
-                {1,0,0},
-                {1,1,0},
-                {1,0,1},
+                {1, 0, 0},
+                {1, 0, 1},
+                {1, 1, 0},
+                {1, 0, 1,}
 
         };
         Matrix matrix = new Matrix(source);
-        Dfs<Matrix> dfs = new Dfs<>(matrix);
+        Dfs<Matrix, Index> dfs = new Dfs<>(matrix);
         LinkedList<Index> getScc = dfs.getSccByNode(new Index(0, 0));
-        System.out.println(getScc);
+       // System.out.println(getScc);
+        LinkedList<LinkedList<Index>> allScc = new LinkedList<>();
+        allScc = dfs.getAllScc();
+        System.out.println(allScc);
 
     }
 

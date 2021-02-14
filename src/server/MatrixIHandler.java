@@ -1,6 +1,7 @@
 package server;
 
 import algorithms.Bfs;
+import algorithms.Dfs;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ public class MatrixIHandler implements IHandler {
     public MatrixIHandler() {
         this.resetParams();
     }
-    private void resetParams(){
+
+    private void resetParams() {
         this.matrix = null;
         this.start = null;
         this.end = null;
@@ -24,7 +26,7 @@ public class MatrixIHandler implements IHandler {
     @Override
     public void handle(InputStream inClient, OutputStream outClient) throws Exception {
 
-        ObjectOutputStream objectOutputStream=new ObjectOutputStream(outClient);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outClient);
         ObjectInputStream objectInputStream = new ObjectInputStream(inClient);
 
         this.resetParams();
@@ -32,8 +34,8 @@ public class MatrixIHandler implements IHandler {
         boolean dowork = true;
         while (dowork) {
             switch (objectInputStream.readObject().toString()) {
-                case "stop":{
-                    dowork= false;
+                case "stop": {
+                    dowork = false;
                     break;
                 }
                 case "matrix": {
@@ -52,8 +54,8 @@ public class MatrixIHandler implements IHandler {
                     break;
                 }
                 case "shortest path": {
-                    
-                    
+
+
                     if (this.matrix.isSizeValid(50) == false) {
                         throw new IllegalArgumentException("input not valid");
                     }
@@ -64,17 +66,28 @@ public class MatrixIHandler implements IHandler {
                     objectOutputStream.writeObject(paths);
 
 
-
                     break;
                 }
                 case "TaskTwo": {
-                 //   Index start = (Index) objectInputStream.readObject();
+                    //   Index start = (Index) objectInputStream.readObject();
                     Collection<Index> reachables = new ArrayList<>();
-                    if (this.matrix != null){
+                    if (this.matrix != null) {
                         reachables.addAll(this.matrix.getReachables(start));
                     }
                     System.out.println("result: " + reachables);
                     objectOutputStream.writeObject(reachables);
+                    break;
+
+                }
+                case "all scc": {
+
+                    Dfs<Matrix, Index> dfs = new Dfs<>(this.matrix);
+
+                    LinkedList<LinkedList<Index>> allScc = new LinkedList<>();
+                    allScc = dfs.getAllScc();
+                    objectOutputStream.writeObject(allScc);
+
+
                     break;
                 }
             }

@@ -1,10 +1,7 @@
 package server;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Matrix implements Serializable, Igraph<Index> {
@@ -112,6 +109,39 @@ public class Matrix implements Serializable, Igraph<Index> {
 
         }
         return allNodes;
+    }
+
+    public List<Index> getAdjacentIndicesDiagonal(Index index) {
+        List<Index> list = new ArrayList<>();
+        int extracted;
+        try{
+            extracted = primitiveMatrix[index.getRow() - 1][index.getColumn()-1];
+            list.add(new Index(index.getRow() - 1,index.getColumn()-1));
+        } catch (ArrayIndexOutOfBoundsException outOfBounds){}
+
+        try{
+            extracted = primitiveMatrix[index.getRow() + 1][index.getColumn()+1];
+            list.add(new Index(index.getRow() +1 ,index.getColumn()+1));
+        } catch (ArrayIndexOutOfBoundsException outOfBounds){}
+
+        try{
+            extracted = primitiveMatrix[index.getRow()+1][index.getColumn()-1];
+            list.add(new Index(index.getRow()+1 ,index.getColumn()-1));
+        } catch (ArrayIndexOutOfBoundsException outOfBounds){}
+
+        try{
+            extracted = primitiveMatrix[index.getRow()-1][index.getColumn()+1];
+            list.add(new Index(index.getRow()-1 ,index.getColumn()+1));
+        } catch (ArrayIndexOutOfBoundsException outOfBounds){}
+
+        return list;
+    }
+
+    public Collection<Index> getReachableDiagonal(Index index) {
+        LinkedList<Index> filteredIndices = new LinkedList<>();
+        this.getAdjacentIndicesDiagonal(index).stream().filter(i -> getValue(i) == 1)
+                .map(neighbor -> filteredIndices.add(neighbor)).collect(Collectors.toList());
+        return filteredIndices;
     }
 
 
