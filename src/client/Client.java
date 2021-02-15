@@ -21,7 +21,7 @@ public class Client {
         ObjectOutputStream toServer = new ObjectOutputStream(outputStream);
 
         int[][] source = {
-                {1,0,0},
+                {0,1,0},
                 {1,0,0},
                 {1,0,1},
 
@@ -32,15 +32,15 @@ public class Client {
         toServer.writeObject(source);
 
 
-        // all SCC
+        // all SCC -1
         toServer.writeObject("all scc");
         LinkedList<LinkedList<Index>> allScc = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
         System.out.println("All SSC in the matrix : " + allScc);
 
-        
-        // shortest path
+
+        // shortest path -2
         toServer.writeObject("start index");
-        toServer.writeObject(new Index(0,0));
+        toServer.writeObject(new Index(1,0));
         toServer.writeObject("end index");
         toServer.writeObject(new Index(2,0));
         toServer.writeObject("shortest path");
