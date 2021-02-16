@@ -35,7 +35,26 @@ public class DiagonalMatrix extends AbstractMatrix implements Serializable, Igra
             extracted = primitiveMatrix[index.getRow()-1][index.getColumn()+1];
             list.add(new Index(index.getRow()-1 ,index.getColumn()+1));
         } catch (ArrayIndexOutOfBoundsException outOfBounds){}
-
+        try {
+            extracted = primitiveMatrix[index.row + 1][index.column];
+            list.add(new Index(index.row + 1, index.column));
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+        try {
+            extracted = primitiveMatrix[index.row][index.column + 1];
+            list.add(new Index(index.row, index.column + 1));
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+        try {
+            extracted = primitiveMatrix[index.row - 1][index.column];
+            list.add(new Index(index.row - 1, index.column));
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+        try {
+            extracted = primitiveMatrix[index.row][index.column - 1];
+            list.add(new Index(index.row, index.column - 1));
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
         return list;
     }
 
@@ -45,6 +64,7 @@ public class DiagonalMatrix extends AbstractMatrix implements Serializable, Igra
                 .map(neighbor -> filteredIndices.add(neighbor)).collect(Collectors.toList());
         return filteredIndices;
     }
+
 
 
 }

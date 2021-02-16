@@ -1,5 +1,6 @@
 package algorithms;
 
+import server.DiagonalMatrix;
 import server.Igraph;
 import server.Index;
 import server.Matrix;
@@ -22,10 +23,6 @@ public class Bfs<T extends Igraph<R>, R> {
     }
 
     public LinkedList<LinkedList<R>> findAllPaths(R start,R end) {
-
-        Matrix matrix = (Matrix) graph;
-
-        int size=matrix.getPrimitiveMatrix().length;
 
         LinkedList<LinkedList<R>> allPaths = new LinkedList<>();
 
@@ -103,8 +100,9 @@ public class Bfs<T extends Igraph<R>, R> {
                 {1,0,0},
 
         };
-        Matrix matrix = new Matrix(source);
-        LinkedList<Index> getAllNodes = matrix.getAllNodes();
+        DiagonalMatrix matrix = new DiagonalMatrix(source);
+        Bfs<DiagonalMatrix, Index> bfs = new Bfs<>(matrix);
+        LinkedList<LinkedList<Index>> getAllNodes = bfs.findAllPaths(new Index(0,0),new Index(2,0));
         System.out.println(getAllNodes);
         
     }

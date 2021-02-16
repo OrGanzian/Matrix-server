@@ -21,16 +21,18 @@ public class Client {
         ObjectOutputStream toServer = new ObjectOutputStream(outputStream);
 
         int[][] source = {
-                {0,1,0},
-                {1,0,0},
-                {1,0,1},
+                {1,1,1},
+                {1,1,1},
+                {0,0,0},
 
         };
 
         toServer.writeObject("matrix");
-        // according to protocol, after "matrix" string, send 2d int array
         toServer.writeObject(source);
-
+        toServer.writeObject("start index");
+        toServer.writeObject(new Index(0,0));
+        toServer.writeObject("end index");
+        toServer.writeObject(new Index(1,2));
 
         // all SCC -1
         toServer.writeObject("all scc");
@@ -39,22 +41,20 @@ public class Client {
 
 
         // shortest path -2
-        toServer.writeObject("start index");
-        toServer.writeObject(new Index(1,0));
-        toServer.writeObject("end index");
-        toServer.writeObject(new Index(2,0));
+
         toServer.writeObject("shortest path");
         LinkedList<LinkedList<Index>> paths = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
         System.out.println("Only shortest paths : " + paths);
 
-        //       toServer.writeObject("stop");
-//        toServer.writeObject(new Index(1,1));
-//
-//        Collection<Index> adjacentIndices = new ArrayList<>((Collection<Index>)fromServer.readObject());
-//        System.out.println("Neighbors: " + adjacentIndices);
-//
-//        toServer.writeObject("TaskTwo");
 
+        // Number Of Submarines
+
+        toServer.writeObject("submarines");
+        Integer NumberOfSubmarines = new Integer((Integer) fromServer.readObject());
+        System.out.println("Number Of Submarines : " + NumberOfSubmarines);
+
+
+        // close connection
         toServer.writeObject("stop");
         fromServer.close();
         toServer.close();

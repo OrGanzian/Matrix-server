@@ -71,7 +71,7 @@ public class TcpServer {
     }
 
     public static void main(String[] args) {
-        System.out.println("or");
+        System.out.println("Server is On");
         TcpServer tcpServer = new TcpServer(8081);
         tcpServer.run(new MatrixIHandler());
 

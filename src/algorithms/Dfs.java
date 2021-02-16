@@ -1,5 +1,6 @@
 package algorithms;
 
+import server.DiagonalMatrix;
 import server.Igraph;
 import server.Index;
 import server.Matrix;
@@ -66,19 +67,28 @@ public class Dfs<T extends Igraph<R>, R> {
 
     public static void main(String[] args) {
         int[][] source = {
-                {1, 0, 0},
-                {1, 0, 1},
-                {1, 1, 0},
-                {1, 0, 1,}
+                {1, 1, 1},
+                {1, 1, 1},
+                {1, 1, 1},
+
 
         };
-        Matrix matrix = new Matrix(source);
-        Dfs<Matrix, Index> dfs = new Dfs<>(matrix);
-        LinkedList<Index> getScc = dfs.getSccByNode(new Index(0, 0));
-       // System.out.println(getScc);
+        DiagonalMatrix matrix = new DiagonalMatrix(source);
+
+       Dfs<DiagonalMatrix, Index> dfs = new Dfs<DiagonalMatrix,Index>(matrix);
+//        LinkedList<Index> getScc = dfs.getSccByNode(new Index(0, 0));
+//        System.out.println(getScc);
         LinkedList<LinkedList<Index>> allScc = new LinkedList<>();
         allScc = dfs.getAllScc();
         System.out.println(allScc);
+
+       // System.out.println(new Index(4, 8).getRow());
+
+
+        MatrixAlgo matrixAlgo = new MatrixAlgo(matrix);
+        Integer ans = matrixAlgo.validSubmarines(allScc);
+
+        System.out.println(ans);
 
     }
 

@@ -2,6 +2,7 @@ package server;
 
 import algorithms.Bfs;
 import algorithms.Dfs;
+import algorithms.MatrixAlgo;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.LinkedList;
 
 public class MatrixIHandler implements IHandler {
 
-    private Matrix matrix;
+    private DiagonalMatrix matrix;
     private Index start, end;
 
     public MatrixIHandler() {
@@ -40,7 +41,7 @@ public class MatrixIHandler implements IHandler {
                 }
                 case "matrix": {
                     int[][] primitiveMatrix = (int[][]) objectInputStream.readObject();
-                    this.matrix = new Matrix(primitiveMatrix);
+                    this.matrix = new DiagonalMatrix(primitiveMatrix);
                     this.matrix.printMatrix();
 
                     break;
@@ -56,10 +57,10 @@ public class MatrixIHandler implements IHandler {
                 case "shortest path": {
 
 
-                    if (this.matrix.isSizeValid(50) == false) {
+                    if (!this.matrix.isSizeValid(50)) {
                         throw new IllegalArgumentException("input not valid");
                     }
-                    Bfs<Matrix, Index> bfs = new Bfs<>(this.matrix);
+                    Bfs<DiagonalMatrix, Index> bfs = new Bfs<DiagonalMatrix, Index>(this.matrix);
 
                     LinkedList<LinkedList<Index>> paths = new LinkedList<>();
                     paths = bfs.findShortestPaths(this.start, this.end);
@@ -68,24 +69,25 @@ public class MatrixIHandler implements IHandler {
 
                     break;
                 }
-                case "TaskTwo": {
-                    //   Index start = (Index) objectInputStream.readObject();
-                    Collection<Index> reachables = new ArrayList<>();
-                    if (this.matrix != null) {
-                        reachables.addAll(this.matrix.getReachables(start));
-                    }
-                    System.out.println("result: " + reachables);
-                    objectOutputStream.writeObject(reachables);
-                    break;
 
-                }
                 case "all scc": {
 
-                    Dfs<Matrix, Index> dfs = new Dfs<>(this.matrix);
+                    Dfs<DiagonalMatrix, Index> dfs = new Dfs<DiagonalMatrix, Index>( this.matrix);
 
                     LinkedList<LinkedList<Index>> allScc = new LinkedList<>();
                     allScc = dfs.getAllScc();
                     objectOutputStream.writeObject(allScc);
+
+
+                    break;
+                }
+                case "submarines": {
+
+                    MatrixAlgo matrixAlgo = new MatrixAlgo(matrix);
+                    Dfs<DiagonalMatrix, Index> dfs = new Dfs<DiagonalMatrix, Index>( this.matrix);
+                    Integer NumberOfValidSubmarines = matrixAlgo.validSubmarines(dfs.getAllScc());
+
+                    objectOutputStream.writeObject(NumberOfValidSubmarines);
 
 
                     break;
