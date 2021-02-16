@@ -42,7 +42,7 @@ public class Client {
 
         // shortest path -2
 
-        toServer.writeObject("shortest path");
+        toServer.writeObject("shortest paths");
         LinkedList<LinkedList<Index>> paths = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
         System.out.println("Only shortest paths : " + paths);
 
@@ -52,6 +52,13 @@ public class Client {
         toServer.writeObject("submarines");
         Integer NumberOfSubmarines = new Integer((Integer) fromServer.readObject());
         System.out.println("Number Of Submarines : " + NumberOfSubmarines);
+
+        // all paths
+
+        toServer.writeObject("all paths");
+        LinkedList<LinkedList<Index>> allPaths = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
+        System.out.println("Only shortest paths : " + allPaths);
+
 
 
         // close connection

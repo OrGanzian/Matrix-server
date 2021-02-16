@@ -3,7 +3,7 @@ package server;
 import java.util.Collection;
 import java.util.List;
 
-public interface Imatrix  {
+public interface Imatrix {
 
         /**
          * @param index to be queried

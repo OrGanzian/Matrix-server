@@ -54,7 +54,7 @@ public class MatrixIHandler implements IHandler {
                     this.end = (Index) objectInputStream.readObject();
                     break;
                 }
-                case "shortest path": {
+                case "shortest paths": {
 
 
                     if (!this.matrix.isSizeValid(50)) {
@@ -88,6 +88,19 @@ public class MatrixIHandler implements IHandler {
                     Integer NumberOfValidSubmarines = matrixAlgo.validSubmarines(dfs.getAllScc());
 
                     objectOutputStream.writeObject(NumberOfValidSubmarines);
+
+
+                    break;
+                }
+                case "all paths": {
+
+
+
+                    Bfs<DiagonalMatrix, Index> bfs = new Bfs<DiagonalMatrix, Index>(this.matrix);
+
+                    LinkedList<LinkedList<Index>> paths = new LinkedList<>();
+                    paths = bfs.findAllPaths(this.start, this.end);
+                    objectOutputStream.writeObject(paths);
 
 
                     break;
