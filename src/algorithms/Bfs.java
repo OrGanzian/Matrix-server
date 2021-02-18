@@ -70,6 +70,9 @@ public class Bfs<T extends Igraph<R>, R> {
         int shortestDistance=0;
 
         LinkedList<LinkedList<R>> allPaths =this.findAllPaths(start, end);
+        if (allPaths.isEmpty()) {
+            return 0;
+        }
         shortestDistance = allPaths.get(0).size();
         for (LinkedList<R> i : allPaths) {
             if (i.size() < shortestDistance) {

@@ -22,7 +22,9 @@ public class Client {
 
         int[][] source = {
                 {1,1,1},
-                {1,1,1},
+                {0,0,0},
+                {0,0,0},
+                {0,0,0},
                 {0,0,0},
 
         };
@@ -32,19 +34,32 @@ public class Client {
         toServer.writeObject("start index");
         toServer.writeObject(new Index(0,0));
         toServer.writeObject("end index");
-        toServer.writeObject(new Index(1,2));
+        toServer.writeObject(new Index(1,1));
 
         // all SCC -1
         toServer.writeObject("all scc");
         LinkedList<LinkedList<Index>> allScc = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
-        System.out.println("All SSC in the matrix : " + allScc);
+        if (allScc.isEmpty()) {
+            System.out.println("There are no connected indices in this matrix.");
+        } else {
+            System.out.println("All SSC in the matrix : " + allScc);
+        }
 
 
         // shortest path -2
 
         toServer.writeObject("shortest paths");
-        LinkedList<LinkedList<Index>> paths = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
-        System.out.println("Only shortest paths : " + paths);
+        try {
+            LinkedList<LinkedList<Index>> paths = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
+            if (paths.isEmpty()) {
+                System.out.println("There are no paths between these indices.");
+            } else {
+                System.out.println("Only shortest paths : " + paths);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
 
 
         // Number Of Submarines
@@ -57,7 +72,12 @@ public class Client {
 
         toServer.writeObject("all paths");
         LinkedList<LinkedList<Index>> allPaths = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
-        System.out.println("Only shortest paths : " + allPaths);
+
+        if (allPaths.isEmpty()) {
+            System.out.println("There are no paths between these indices.");
+        } else {
+            System.out.println("All paths available : " + allPaths);
+        }
 
 
 

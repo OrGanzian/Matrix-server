@@ -57,8 +57,9 @@ public class MatrixIHandler implements IHandler {
                 case "shortest paths": {
 
 
-                    if (!this.matrix.isSizeValid(50)) {
-                        throw new IllegalArgumentException("input not valid");
+                    if (!this.matrix.isSizeValid(4)) {
+                        //throw new IllegalArgumentException("Matrix too big...");
+                        throw new Exception("Matrix is Over 50X50, please try a new matrix");
                     }
                     Bfs<DiagonalMatrix, Index> bfs = new Bfs<DiagonalMatrix, Index>(this.matrix);
 
