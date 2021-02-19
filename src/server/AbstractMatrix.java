@@ -13,6 +13,7 @@ import java.util.*;
  *  * operation and common data fields for all implementing matrices
  */
 public abstract class AbstractMatrix implements Imatrix{
+
     protected int[][] primitiveMatrix;
 
     // Default constructor

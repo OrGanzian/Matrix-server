@@ -10,13 +10,4 @@ public interface HasUUID {
     UUID getUUID();
 
 
-
-
-
-
-
-
-
-
-
 }

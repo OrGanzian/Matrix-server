@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * This class represents a multi-threaded server
@@ -14,6 +15,7 @@ public class TcpServer {
     private volatile boolean stopServer;
     private ThreadPoolExecutor executor;
     private IHandler requestConcreteIHandler;
+    ReentrantReadWriteLock locker = new ReentrantReadWriteLock();
 
     public TcpServer(int port) {
         this.port = port;
@@ -61,14 +63,28 @@ public class TcpServer {
         new Thread(mainLogic).start();
     }
 
+
     public void stop() {
-        if (!stopServer) {
-            stopServer = true;
-            if (executor != null) {
-                executor.shutdown();
+        try {
+            locker.writeLock().lock();
+            if (!stopServer) {        //critical code section
+                stopServer = true;
+                if (executor != null) {
+                    executor.shutdown();
+                }
             }
         }
+        finally {
+            locker.writeLock().unlock();
+        }
     }
+
+
+//
+//    public void stop() {
+//
+//        }
+//    }
 
     public static void main(String[] args) {
         System.out.println("Server is On");

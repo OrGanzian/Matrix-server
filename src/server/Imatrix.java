@@ -18,7 +18,6 @@ public interface Imatrix {
          */
         public List<Index> getAdjacentIndices(Index index);
 
-
         public Collection<Index> getReachables(Index index);
 }
 

@@ -8,13 +8,21 @@ import java.util.UUID;
  *
  * This class represent a key and its UUID.
  */
-final public class MyUUID implements Comparable<MyUUID> {
+  public final class MyUUID implements Comparable<MyUUID> {
 
     final private String key;
     final private UUID uuid;
 
+
+    public  String getStringUUID() {
+        return this.key;
+    }
+    public  UUID getUuid() {
+        return uuid;
+    }
+
+
     /**
-     *
      * the UUID must based on a provided key
      * @param key key is String type
      */
@@ -24,7 +32,7 @@ final public class MyUUID implements Comparable<MyUUID> {
     }
 
     /**
-     *
+     * given a key, encode to UUID
      * @param key string key
      * @return UUID based on the key
      */
@@ -43,14 +51,6 @@ final public class MyUUID implements Comparable<MyUUID> {
         return myUUID.getStringUUID();
     }
 
-
-    public String getStringUUID() {
-        return this.key;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
 
     /**
      *
@@ -77,6 +77,7 @@ final public class MyUUID implements Comparable<MyUUID> {
     public static void main(String[] args) {
         MyUUID one = new MyUUID("or");
         System.out.println(one);
+
         System.out.println(decoder(one));
 
     }

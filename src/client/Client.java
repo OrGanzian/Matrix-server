@@ -51,6 +51,7 @@ public class Client {
         toServer.writeObject("shortest paths");
         try {
             LinkedList<LinkedList<Index>> paths = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
+
             if (paths.isEmpty()) {
                 System.out.println("There are no paths between these indices.");
             } else {
