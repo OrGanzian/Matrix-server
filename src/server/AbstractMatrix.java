@@ -83,8 +83,8 @@ public abstract class AbstractMatrix implements Imatrix{
         return stringBuilder.toString();
     }
 
-    public LinkedList<Index> getAllNodes() {
-        LinkedList<Index> allNodes = new LinkedList<>();
+    public List<Index> getAllNodes() {
+        List<Index> allNodes = new LinkedList<>();
 
         for (int i = 0; i <this.primitiveMatrix.length ; i++)
         {
@@ -109,7 +109,6 @@ public abstract class AbstractMatrix implements Imatrix{
         return true;
 
     }
-
 
     public final int[][] getPrimitiveMatrix() {
         return primitiveMatrix;

@@ -3,10 +3,10 @@ package algorithms;
 import server.DiagonalMatrix;
 import server.Igraph;
 import server.Index;
-import server.Matrix;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -22,9 +22,9 @@ public class Bfs<T extends Igraph<R>, R> {
         this.graph = graph;
     }
 
-    public LinkedList<LinkedList<R>> findAllPaths(R start,R end) {
+    public List<List<R>> findAllPaths(R start, R end) {
 
-        LinkedList<LinkedList<R>> allPaths = new LinkedList<>();
+        List<List<R>> allPaths = new LinkedList<>();
 
         Queue< LinkedList<R> > queue =new LinkedList();
 
@@ -66,15 +66,15 @@ public class Bfs<T extends Igraph<R>, R> {
         return allPaths;
     }
 
-    public int getShortstDistance(R start, R end) {
+    public int getShortestDistance(R start, R end) {
         int shortestDistance=0;
 
-        LinkedList<LinkedList<R>> allPaths =this.findAllPaths(start, end);
+        List<List<R>> allPaths =this.findAllPaths(start, end);
         if (allPaths.isEmpty()) {
             return 0;
         }
         shortestDistance = allPaths.get(0).size();
-        for (LinkedList<R> i : allPaths) {
+        for (List<R> i : allPaths) {
             if (i.size() < shortestDistance) {
                 shortestDistance = i.size();
             }
@@ -83,11 +83,11 @@ public class Bfs<T extends Igraph<R>, R> {
         return shortestDistance;
     }
 
-    public LinkedList<LinkedList<R>> findShortestPaths(R start, R end) {
-        LinkedList<LinkedList<R>> allPaths =this.findAllPaths(start, end);
-        int shortestDistance = this.getShortstDistance(start, end);
-        LinkedList<LinkedList<R>> allShortestPaths = new LinkedList<>();
-        for (LinkedList<R> i:allPaths) {
+    public List<List<R>> findShortestPaths(R start, R end) {
+        List<List<R>> allPaths =this.findAllPaths(start, end);
+        int shortestDistance = this.getShortestDistance(start, end);
+        List<List<R>> allShortestPaths = new LinkedList<>();
+        for (List<R> i:allPaths) {
             if (i.size() <= shortestDistance) {
                 allShortestPaths.add(i);
             }
@@ -105,7 +105,7 @@ public class Bfs<T extends Igraph<R>, R> {
         };
         DiagonalMatrix matrix = new DiagonalMatrix(source);
         Bfs<DiagonalMatrix, Index> bfs = new Bfs<>(matrix);
-        LinkedList<LinkedList<Index>> getAllNodes = bfs.findAllPaths(new Index(0,0),new Index(2,0));
+        List<List<Index>> getAllNodes = bfs.findAllPaths(new Index(0,0),new Index(2,1));
         System.out.println(getAllNodes);
         
     }

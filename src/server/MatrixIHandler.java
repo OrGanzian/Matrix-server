@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 public class MatrixIHandler implements IHandler {
 
@@ -59,11 +60,13 @@ public class MatrixIHandler implements IHandler {
 
                     if (!this.matrix.isSizeValid(50)) {
                         //throw new IllegalArgumentException("Matrix too big...");
+                       // objectOutputStream.writeObject(new Exception("yes sir"));
+
                         throw new Exception("Matrix is Over 50X50, please try a new matrix");
                     }
                     Bfs<DiagonalMatrix, Index> bfs = new Bfs<DiagonalMatrix, Index>(this.matrix);
 
-                    LinkedList<LinkedList<Index>> paths = new LinkedList<>();
+                    List<List<Index>> paths = new LinkedList<>();
                     paths = bfs.findShortestPaths(this.start, this.end);
                     objectOutputStream.writeObject(paths);
 
@@ -75,7 +78,7 @@ public class MatrixIHandler implements IHandler {
 
                     Dfs<DiagonalMatrix, Index> dfs = new Dfs<DiagonalMatrix, Index>( this.matrix);
 
-                    LinkedList<LinkedList<Index>> allScc = new LinkedList<>();
+                    List<List<Index>> allScc = new LinkedList<>();
                     allScc = dfs.getAllScc();
                     objectOutputStream.writeObject(allScc);
 
@@ -99,7 +102,7 @@ public class MatrixIHandler implements IHandler {
 
                     Bfs<DiagonalMatrix, Index> bfs = new Bfs<DiagonalMatrix, Index>(this.matrix);
 
-                    LinkedList<LinkedList<Index>> paths = new LinkedList<>();
+                    List<List<Index>> paths = new LinkedList<>();
                     paths = bfs.findAllPaths(this.start, this.end);
                     objectOutputStream.writeObject(paths);
 

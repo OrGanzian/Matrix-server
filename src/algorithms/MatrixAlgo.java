@@ -22,8 +22,8 @@ public class MatrixAlgo {
     public Boolean isSquare(List<Index> listToCheck) {
 
         Integer left, right, top, down;
-        LinkedList<Integer> laftIndeces  = new LinkedList<>();
-        LinkedList<Integer> rightIndeces = new LinkedList<>();
+        List<Integer> laftIndeces  = new LinkedList<>();
+        List<Integer> rightIndeces = new LinkedList<>();
 
         for (Index i : listToCheck) {
             laftIndeces.add(i.getRow());
@@ -47,7 +47,7 @@ public class MatrixAlgo {
         return true;
     }
 
-    public Integer validSubmarines(LinkedList<LinkedList<Index>> allSccList) {
+    public Integer validSubmarines(List<List<Index>> allSccList) {
         Integer countValidSubmarines = 0;
 
         for (List<Index> i : allSccList) {

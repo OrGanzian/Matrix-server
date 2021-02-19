@@ -6,6 +6,7 @@ import server.Index;
 import server.Matrix;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 public class Dfs<T extends Igraph<R>, R> {
@@ -16,8 +17,8 @@ public class Dfs<T extends Igraph<R>, R> {
         this.graph = graph;
     }
 
-    public LinkedList<R> getSccByNode(R node) {
-        LinkedList<R> visited = new LinkedList<>();
+    public List<R> getSccByNode(R node) {
+        List<R> visited = new LinkedList<>();
         Stack<R> stack = new Stack<>();
 
         stack.add(node);
@@ -43,15 +44,15 @@ public class Dfs<T extends Igraph<R>, R> {
         return visited;
     }
 
-    public LinkedList<LinkedList<R>> getAllScc() {
+    public List<List<R>> getAllScc() {
 
-        LinkedList<LinkedList<R>> allScc = new LinkedList<>();
-        LinkedList<R> allNodes= (LinkedList<R>) this.graph.getAllNodes();
+        List<List<R>> allScc = new LinkedList<>();
+        List<R> allNodes= (LinkedList<R>) this.graph.getAllNodes();
 
         while (!allNodes.isEmpty()) {
 
-            R curr = allNodes.getFirst();
-            LinkedList<R> listToPush = this.getSccByNode(curr);
+            R curr = ((LinkedList<R>) allNodes).getFirst();
+            List<R> listToPush = this.getSccByNode(curr);
 
             for (R i : listToPush) {
                 allNodes.remove(i);
@@ -63,7 +64,6 @@ public class Dfs<T extends Igraph<R>, R> {
         return allScc;
 
     }
-
 
     public static void main(String[] args) {
         int[][] source = {
@@ -78,7 +78,7 @@ public class Dfs<T extends Igraph<R>, R> {
        Dfs<DiagonalMatrix, Index> dfs = new Dfs<DiagonalMatrix,Index>(matrix);
 //        LinkedList<Index> getScc = dfs.getSccByNode(new Index(0, 0));
 //        System.out.println(getScc);
-        LinkedList<LinkedList<Index>> allScc = new LinkedList<>();
+        List<List<Index>> allScc = new LinkedList<>();
         allScc = dfs.getAllScc();
         System.out.println(allScc);
 
