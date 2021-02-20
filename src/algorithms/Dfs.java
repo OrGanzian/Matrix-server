@@ -5,9 +5,7 @@ import server.Igraph;
 import server.Index;
 import server.Matrix;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Dfs<T extends Igraph<R>, R> {
 
@@ -61,15 +59,19 @@ public class Dfs<T extends Igraph<R>, R> {
             allScc.add(listToPush);
         }
 
+        allScc.sort((Comparator.comparingInt(List::size)));
+        Collections.reverse(allScc);
         return allScc;
 
     }
 
+   
+
     public static void main(String[] args) {
         int[][] source = {
-                {1, 1, 1},
-                {1, 1, 1},
-                {1, 1, 1},
+                {1, 0, 1},
+                {1, 0, 1},
+                {0, 0, 1},
 
 
         };
