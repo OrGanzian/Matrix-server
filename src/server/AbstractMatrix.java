@@ -21,6 +21,30 @@ public abstract class AbstractMatrix implements Imatrix{
         this(5,5);
     }
 
+    public AbstractMatrix(int[][] oArray) {
+        primitiveMatrix = Arrays
+                .stream(oArray)
+                .map(row -> row.clone())
+                .toArray(value -> new int[value][]);
+    }
+
+    public AbstractMatrix(Integer[][] oArray) {
+
+
+        int[][] primitive = new int[oArray.length][oArray[0].length];
+        for (int i = 0; i < oArray.length; i++) {
+            for (int j = 0; j <oArray[0].length ; j++) {
+                primitive[i][j] = oArray[i][j].intValue();
+            }
+        }
+        primitiveMatrix = Arrays
+                .stream(primitive)
+                .map(row -> row.clone())
+                .toArray(value -> new int[value][]);
+
+
+    }
+
     /**
      * Constructor for invocation by subclass constructors, typically implicit
      * @param nRows number of rows
@@ -114,7 +138,18 @@ public abstract class AbstractMatrix implements Imatrix{
         return primitiveMatrix;
     }
 
+    public int[][] getPremitiveMatrix(Integer[][] ObjectMatrix) {
 
+        int[][] primitive = new int[ObjectMatrix.length][ObjectMatrix[0].length];
+        for (int i = 0; i < ObjectMatrix.length; i++) {
+            for (int j = 0; j <ObjectMatrix[0].length ; j++) {
+                primitive[i][j] = ObjectMatrix[i][j].intValue();
+            }
+        }
+
+
+        return primitive;
+    }
 
 
 }

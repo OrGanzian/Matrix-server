@@ -39,12 +39,16 @@ public class MatrixIHandler implements IHandler {
                     break;
                 }
                 case "matrix": {
-                    int[][] primitiveMatrix = (int[][]) objectInputStream.readObject();
-                    this.matrix = new DiagonalMatrix(primitiveMatrix);
-                    this.matrix.printMatrix();
+                    Object object = objectInputStream.readObject();
+                    if (object instanceof Integer[][] ) {
+                        this.matrix = new DiagonalMatrix((Integer[][]) object);
+                    }else {
+                        this.matrix = new DiagonalMatrix((int[][]) object);
+                    }
+                  this.matrix.printMatrix();
 
                     break;
-                }
+               }
                 case "start index": {
                     this.start = (Index) objectInputStream.readObject();
                     break;

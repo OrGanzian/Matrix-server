@@ -7,10 +7,11 @@ import java.util.stream.Collectors;
 public class Matrix extends AbstractMatrix implements Serializable, Igraph<Index> {
 
     public Matrix(int[][] oArray) {
-        primitiveMatrix = Arrays
-                .stream(oArray)
-                .map(row -> row.clone())
-                .toArray(value -> new int[value][]);
+       super(oArray);
+    }
+
+    public Matrix(Integer[][] oArray) {
+        super(oArray);
     }
 
     public List<Index> getAdjacentIndices(final Index index) {

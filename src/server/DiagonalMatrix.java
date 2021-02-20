@@ -7,11 +7,14 @@ import java.util.stream.Collectors;
 public class DiagonalMatrix extends AbstractMatrix implements Serializable, Igraph<Index> {
 
     public DiagonalMatrix(int[][] oArray) {
-        primitiveMatrix = Arrays
-                .stream(oArray)
-                .map(row -> row.clone())
-                .toArray(value -> new int[value][]);
+       super(oArray);
+
     }
+
+    public DiagonalMatrix(Integer[][] oArray) {
+        super(oArray);
+    }
+
     @Override
     public List<Index> getAdjacentIndices(Index index) {
         List<Index> list = new ArrayList<>();
