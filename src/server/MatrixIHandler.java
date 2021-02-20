@@ -3,12 +3,10 @@ package server;
 import algorithms.Bfs;
 import algorithms.Dfs;
 import algorithms.MatrixAlgo;
+import sun.swing.BakedArrayList;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class MatrixIHandler implements IHandler {
 
@@ -78,7 +76,7 @@ public class MatrixIHandler implements IHandler {
 
                     Dfs<DiagonalMatrix, Index> dfs = new Dfs<DiagonalMatrix, Index>( this.matrix);
 
-                    List<List<Index>> allScc = new LinkedList<>();
+                    List<Set<Index>> allScc = new LinkedList<>();
                     allScc = dfs.getAllScc();
                     objectOutputStream.writeObject(allScc);
 

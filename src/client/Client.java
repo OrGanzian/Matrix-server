@@ -21,11 +21,11 @@ public class Client {
         ObjectOutputStream toServer = new ObjectOutputStream(outputStream);
 
         int[][] source = {
-                {1,0,0},
-                {1,1,0},
-                {0,1,0},
-//                {0,0,0},
-//                {0,0,0},
+                {1,1,1},
+                {1,0,1},
+                {0,0,1},
+                {0,0,0},
+                {1,0,1},
 
         };
 
@@ -34,7 +34,7 @@ public class Client {
         toServer.writeObject("start index");
         toServer.writeObject(new Index(0,0));
         toServer.writeObject("end index");
-        toServer.writeObject(new Index(2,1));
+        toServer.writeObject(new Index(2,2));
 
         // all SCC -1
         toServer.writeObject("all scc");

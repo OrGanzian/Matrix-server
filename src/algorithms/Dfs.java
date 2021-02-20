@@ -15,8 +15,10 @@ public class Dfs<T extends Igraph<R>, R> {
         this.graph = graph;
     }
 
-    public List<R> getSccByNode(R node) {
-        List<R> visited = new LinkedList<>();
+
+
+    public Set<R> getSccByNode(R node) {
+        Set<R> visited = new HashSet<>();
         Stack<R> stack = new Stack<>();
 
         stack.add(node);
@@ -42,15 +44,15 @@ public class Dfs<T extends Igraph<R>, R> {
         return visited;
     }
 
-    public List<List<R>> getAllScc() {
+    public List<Set<R>> getAllScc() {
 
-        List<List<R>> allScc = new LinkedList<>();
+        List<Set<R>> allScc = new LinkedList<>();
         List<R> allNodes= (LinkedList<R>) this.graph.getAllNodes();
 
         while (!allNodes.isEmpty()) {
 
             R curr = ((LinkedList<R>) allNodes).getFirst();
-            List<R> listToPush = this.getSccByNode(curr);
+            Set<R> listToPush = this.getSccByNode(curr);
 
             for (R i : listToPush) {
                 allNodes.remove(i);
@@ -59,17 +61,15 @@ public class Dfs<T extends Igraph<R>, R> {
             allScc.add(listToPush);
         }
 
-        allScc.sort((Comparator.comparingInt(List::size)));
+        allScc.sort((Comparator.comparingInt(Set::size)));
         Collections.reverse(allScc);
         return allScc;
 
     }
 
-   
-
     public static void main(String[] args) {
         int[][] source = {
-                {1, 0, 1},
+                {1, 1, 1},
                 {1, 0, 1},
                 {0, 0, 1},
 
@@ -80,17 +80,14 @@ public class Dfs<T extends Igraph<R>, R> {
        Dfs<DiagonalMatrix, Index> dfs = new Dfs<DiagonalMatrix,Index>(matrix);
 //        LinkedList<Index> getScc = dfs.getSccByNode(new Index(0, 0));
 //        System.out.println(getScc);
-        List<List<Index>> allScc = new LinkedList<>();
+        List<Set<Index>> allScc = new LinkedList<>();
         allScc = dfs.getAllScc();
         System.out.println(allScc);
 
        // System.out.println(new Index(4, 8).getRow());
 
 
-        MatrixAlgo matrixAlgo = new MatrixAlgo(matrix);
-        Integer ans = matrixAlgo.validSubmarines(allScc);
 
-        System.out.println(ans);
 
     }
 

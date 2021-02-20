@@ -8,6 +8,7 @@ import server.Matrix;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class MatrixAlgo {
 
@@ -19,7 +20,7 @@ public class MatrixAlgo {
         this.imatrix = concreteMatrix;
     }
 
-    public Boolean isSquare(List<Index> listToCheck) {
+    public Boolean isSquare(Set<Index> listToCheck) {
 
         Integer left, right, top, down;
         List<Integer> laftIndeces  = new LinkedList<>();
@@ -47,10 +48,10 @@ public class MatrixAlgo {
         return true;
     }
 
-    public Integer validSubmarines(List<List<Index>> allSccList) {
-        Integer countValidSubmarines = 0;
+    public Integer validSubmarines(List<Set<Index>> allSccList) {
+            Integer countValidSubmarines = 0;
 
-        for (List<Index> i : allSccList) {
+        for (Set<Index> i : allSccList) {
             if (this.isSquare(i) && i.size()>=2) {
                 countValidSubmarines++;
             }
