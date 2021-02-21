@@ -18,6 +18,11 @@ public interface Imatrix {
          */
         public List<Index> getAdjacentIndices(Index index);
 
+        /**
+         * @param index to return all his rachables indices(neighbors & 1 value)
+         * @return collection of all the reachables
+         */
         public Collection<Index> getReachables(Index index);
+
 }
 

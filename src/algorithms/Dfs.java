@@ -67,29 +67,7 @@ public class Dfs<T extends Igraph<R>, R> {
 
     }
 
-    public static void main(String[] args) {
-        int[][] source = {
-                {1, 1, 1},
-                {1, 0, 1},
-                {0, 0, 1},
 
-
-        };
-        DiagonalMatrix matrix = new DiagonalMatrix(source);
-
-       Dfs<DiagonalMatrix, Index> dfs = new Dfs<DiagonalMatrix,Index>(matrix);
-//        LinkedList<Index> getScc = dfs.getSccByNode(new Index(0, 0));
-//        System.out.println(getScc);
-        List<Set<Index>> allScc = new LinkedList<>();
-        allScc = dfs.getAllScc();
-        System.out.println(allScc);
-
-       // System.out.println(new Index(4, 8).getRow());
-
-
-
-
-    }
 
 
 }

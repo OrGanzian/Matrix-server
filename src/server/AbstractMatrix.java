@@ -12,7 +12,7 @@ import java.util.*;
  * It provides skeletal implementations of one IMatrix
  *  * operation and common data fields for all implementing matrices
  */
-public abstract class AbstractMatrix implements Imatrix{
+public abstract class AbstractMatrix implements Imatrix , Igraph<Index>{
 
     protected int[][] primitiveMatrix;
 
@@ -28,8 +28,13 @@ public abstract class AbstractMatrix implements Imatrix{
                 .toArray(value -> new int[value][]);
     }
 
-    public AbstractMatrix(Integer[][] oArray) {
 
+    /**
+     *
+     * @param oArray given a matrix of type Integer, turn it into int using Integer.getValue
+     *               and init the permitive matrix member.
+     */
+    public AbstractMatrix(Integer[][] oArray) {
 
         int[][] primitive = new int[oArray.length][oArray[0].length];
         for (int i = 0; i < oArray.length; i++) {
@@ -138,6 +143,10 @@ public abstract class AbstractMatrix implements Imatrix{
         return primitiveMatrix;
     }
 
+    /**
+     * @param ObjectMatrix matrix of type integer
+     * @return matrix of int (the same values)
+     */
     public int[][] getPremitiveMatrix(Integer[][] ObjectMatrix) {
 
         int[][] primitive = new int[ObjectMatrix.length][ObjectMatrix[0].length];

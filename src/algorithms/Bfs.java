@@ -22,12 +22,17 @@ public class Bfs<T extends Igraph<R>, R> {
         this.graph = graph;
     }
 
+
+    /**
+     * given start node and end node in the graph, return all paths available between these nodes
+     * @param start start node
+     * @param end end node
+     * @return list of all paths (each paths is a list)
+     */
     public List<List<R>> findAllPaths(R start, R end) {
 
         List<List<R>> allPaths = new LinkedList<>();
-
         Queue< LinkedList<R> > queue =new LinkedList();
-
         HashSet<R> visited = new HashSet<R>();
 
         LinkedList<R> startList = new LinkedList<R>();
@@ -95,20 +100,6 @@ public class Bfs<T extends Igraph<R>, R> {
         return allShortestPaths;
     }
 
-
-    public static void main(String[] args) {
-        int[][] source = {
-                {1,0,0},
-                {1,0,0},
-                {1,0,0},
-
-        };
-        DiagonalMatrix matrix = new DiagonalMatrix(source);
-        Bfs<DiagonalMatrix, Index> bfs = new Bfs<>(matrix);
-        List<List<Index>> getAllNodes = bfs.findAllPaths(new Index(0,0),new Index(2,1));
-        System.out.println(getAllNodes);
-        
-    }
 
 
 }

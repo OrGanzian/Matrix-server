@@ -76,9 +76,11 @@ import java.util.UUID;
 
     public static void main(String[] args) {
         MyUUID one = new MyUUID("or");
-        System.out.println(one);
+        MyUUID two = new MyUUID("or");
 
-        System.out.println(decoder(one));
+        System.out.println(two);
+
+
 
     }
 

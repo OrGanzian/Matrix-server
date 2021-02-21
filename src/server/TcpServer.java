@@ -15,12 +15,13 @@ public class TcpServer {
     private volatile boolean stopServer;
     private ThreadPoolExecutor executor;
     private IHandler requestConcreteIHandler;
-    ReentrantReadWriteLock locker = new ReentrantReadWriteLock();
+    ReentrantReadWriteLock locker;
 
     public TcpServer(int port) {
         this.port = port;
         stopServer = false;
         executor = null;
+        locker=new ReentrantReadWriteLock();
     }
 
     public void run(IHandler concreteIHandlerStrategy) {
@@ -35,13 +36,12 @@ public class TcpServer {
                 server.setSoTimeout(1000);
                 while (!stopServer) {
                     try {
-                        Socket request = server.accept(); // Wrap with a separate thread
+                        Socket request = server.accept();
                         System.out.println("New connection to client established");
                         Runnable runnable = () -> {
                             try {
-                                System.out.println("Running client in executor");
                                 requestConcreteIHandler.handle(request.getInputStream(),
-                                        request.getOutputStream());
+                                                               request.getOutputStream());
 
                             } catch (Exception e) {
                                 System.err.println(e.getMessage());
@@ -86,11 +86,7 @@ public class TcpServer {
     }
 
 
-//
-//    public void stop() {
-//
-//        }
-//    }
+
 
     public static void main(String[] args) {
         System.out.println("Server is On");
