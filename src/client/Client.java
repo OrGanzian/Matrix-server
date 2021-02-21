@@ -9,6 +9,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class Client {
+
+    static int MAX_SIZE=50;
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         // In order to request something over TCP from a server, we need a port number and an IP address
         Socket socket = new Socket("127.0.0.1",8081);
@@ -51,12 +54,17 @@ public class Client {
         toServer.writeObject("shortest paths");
         try {
             LinkedList<LinkedList<Index>> paths = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
+            if (source.length < MAX_SIZE) {
+                if (paths.isEmpty()) {
+                    System.out.println("There are no paths between these indices.");
+                } else {
+                    System.out.println("Only shortest paths : " + paths);
+                }
 
-            if (paths.isEmpty()) {
-                System.out.println("There are no paths between these indices.");
             } else {
-                System.out.println("Only shortest paths : " + paths);
+                System.out.println("Matrix is Over 50X50, please try a new matrix");
             }
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

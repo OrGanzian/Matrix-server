@@ -42,13 +42,19 @@ public class TcpServer {
                                 System.out.println("Running client in executor");
                                 requestConcreteIHandler.handle(request.getInputStream(),
                                         request.getOutputStream());
-                                // Close all streams
-                                request.getInputStream().close();
-                                request.getOutputStream().close();
-                                request.close();
+
                             } catch (Exception e) {
-                                System.out.println("server::"+e.getMessage());
                                 System.err.println(e.getMessage());
+                            } finally {   // Close all streams
+                                try {
+                                    request.getInputStream().close();
+                                    request.getOutputStream().close();
+                                    request.close();
+                                } catch (Exception e) {
+                                    System.err.println(e.getMessage());
+
+                                }
+
                             }
                         };
                         executor.execute(runnable);
