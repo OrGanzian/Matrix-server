@@ -59,17 +59,17 @@ public class MatrixIHandler implements IHandler {
                 }
                 case "shortest paths": {
 
-
-                    if (!this.matrix.isSizeValid(50)) {
-
-                        throw new Exception("Matrix is Over 50X50, please try a new matrix");
-                    }
-                    Bfs<DiagonalMatrix, Index> bfs = new Bfs<DiagonalMatrix, Index>(this.matrix);
-
                     List<List<Index>> paths = new LinkedList<>();
-                    paths = bfs.findShortestPaths(this.start, this.end);
-                    objectOutputStream.writeObject(paths);
+                    if (!this.matrix.isSizeValid(50)) {
+                        objectOutputStream.writeObject(paths);
+                      // throw new Exception("Matrix is Over 50X50, please try a new matrix"); // this line is optional : kill the clients' thread
 
+                    } else {
+                        Bfs<DiagonalMatrix, Index> bfs = new Bfs<DiagonalMatrix, Index>(this.matrix);
+                        paths = bfs.findShortestPaths(this.start, this.end);
+                        objectOutputStream.writeObject(paths);
+
+                    }
 
                     break;
                 }

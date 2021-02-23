@@ -21,7 +21,7 @@ public class Client {
         ObjectOutputStream toServer = new ObjectOutputStream(outputStream);
 
         int[][] source = {
-                {1,1,1},
+                {0,0,1},
                 {1,0,1},
                 {1,0,0},
                 {0,0,0},
@@ -34,7 +34,7 @@ public class Client {
         toServer.writeObject("start index");
         toServer.writeObject(new Index(0,0));
         toServer.writeObject("end index");
-        toServer.writeObject(new Index(0,2));
+        toServer.writeObject(new Index(0,1));
 
         // all SCC
         toServer.writeObject("all scc");
@@ -51,13 +51,12 @@ public class Client {
         toServer.writeObject("shortest paths");
         try {
             LinkedList<LinkedList<Index>> paths = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
+
                 if (paths.isEmpty()) {
-                    System.out.println("There are no paths between these indices.");
+                    System.out.println("Something went wrong... Please check your Matrix. Hint: no paths exist");
                 } else {
                     System.out.println("Only shortest paths : " + paths);
                 }
-
-
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
