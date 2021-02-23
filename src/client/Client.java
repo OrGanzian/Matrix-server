@@ -4,14 +4,10 @@ import server.Index;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 public class Client {
 
-    static int MAX_SIZE=50;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         // In order to request something over TCP from a server, we need a port number and an IP address
@@ -38,11 +34,11 @@ public class Client {
         toServer.writeObject("start index");
         toServer.writeObject(new Index(0,0));
         toServer.writeObject("end index");
-        toServer.writeObject(new Index(2,2));
+        toServer.writeObject(new Index(0,2));
 
         // all SCC
         toServer.writeObject("all scc");
-        LinkedList<Set<Index>> allScc = new LinkedList<Set<Index>>((Collection<? extends Set<Index>>) fromServer.readObject());
+        LinkedList<HashSet<Index>> allScc = new LinkedList<HashSet<Index>>((Collection<? extends HashSet<Index>>) fromServer.readObject());
         if (allScc.isEmpty()) {
             System.out.println("There are no connected indices in this matrix.");
         } else {
@@ -55,16 +51,13 @@ public class Client {
         toServer.writeObject("shortest paths");
         try {
             LinkedList<LinkedList<Index>> paths = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
-            if (source.length < MAX_SIZE) {
                 if (paths.isEmpty()) {
                     System.out.println("There are no paths between these indices.");
                 } else {
                     System.out.println("Only shortest paths : " + paths);
                 }
 
-            } else {
-                System.out.println("Matrix is Over 50X50, please try a new matrix");
-            }
+
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
