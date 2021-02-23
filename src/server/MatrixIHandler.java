@@ -61,8 +61,6 @@ public class MatrixIHandler implements IHandler {
 
 
                     if (!this.matrix.isSizeValid(50)) {
-                        //throw new IllegalArgumentException("Matrix too big...");
-                       // objectOutputStream.writeObject(new Exception("yes sir"));
 
                         throw new Exception("Matrix is Over 50X50, please try a new matrix");
                     }

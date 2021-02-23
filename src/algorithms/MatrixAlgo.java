@@ -14,12 +14,20 @@ public class MatrixAlgo {
 
     Imatrix imatrix;
 
-
-
     public MatrixAlgo(Imatrix concreteMatrix) {
         this.imatrix = concreteMatrix;
     }
 
+    /**
+     * given a set of indices, check if those indices are a valid subMarine
+     * a subMarine is a set of indices in matrix which all values are 1.
+     * example     {1,1,1}, <----
+     *             {1,1,1},
+     *             {0,0,0}
+     * the upper indices set is a square=subMarine
+     * @param listToCheck set of indices (probably be a connected components)
+     * @return true if the set is subMarine(square)
+     */
     public Boolean isSquare(Set<Index> listToCheck) {
 
         Integer left, right, top, down;
@@ -48,6 +56,11 @@ public class MatrixAlgo {
         return true;
     }
 
+    /**
+     * check the number of valid subMarines in given list of sets to check
+     * @param allSccList list of sets to check
+     * @return number of valid subMarines
+     */
     public Integer validSubmarines(List<Set<Index>> allSccList) {
             Integer countValidSubmarines = 0;
 

@@ -15,10 +15,23 @@ public class Dfs<T extends Igraph<R>, R> {
         this.graph = graph;
     }
 
-
-
+    /**
+     * given a node in the graph(type R), return all neighbors which this node
+     * belong to.
+     * @param node node in the graph
+     * @return all the connected nodes to the given node
+     */
     public Set<R> getSccByNode(R node) {
-        Set<R> visited = new HashSet<>();
+
+        /**
+         * algorithm explanation: Classic Dfs:
+         * 1. enter "start" to stack
+         * 2.while stack is not empty do:
+         * 3.push all the curr node to stack and add to visited.
+         * 4.return visited.
+         */
+
+        Set<R> visited = new HashSet<>(); //every node we visit will be entered, help to avoid double check
         Stack<R> stack = new Stack<>();
 
         stack.add(node);
@@ -44,7 +57,17 @@ public class Dfs<T extends Igraph<R>, R> {
         return visited;
     }
 
+    /**
+     * return the connected component in the graph
+     * @return list of sets of nodes
+     */
     public List<Set<R>> getAllScc() {
+
+        /**
+         * 1. get all nodes.
+         * 2.start exploring scc randomly (getSccByNode) and add to allScc. each list is subtracted from all nodes
+         * 3. return allScc
+         */
 
         List<Set<R>> allScc = new LinkedList<>();
         List<R> allNodes= (LinkedList<R>) this.graph.getAllNodes();
@@ -61,7 +84,7 @@ public class Dfs<T extends Igraph<R>, R> {
             allScc.add(listToPush);
         }
 
-        allScc.sort((Comparator.comparingInt(Set::size)));
+        allScc.sort((Comparator.comparingInt(Set::size))); //sorting by size (high to low)
         Collections.reverse(allScc);
         return allScc;
 

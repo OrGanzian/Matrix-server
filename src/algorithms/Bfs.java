@@ -31,6 +31,15 @@ public class Bfs<T extends Igraph<R>, R> {
      */
     public List<List<R>> findAllPaths(R start, R end) {
 
+
+        /**
+         * Algorithm explanation: Enhanced Bfs algorithm:
+         * 1. enter "start" as list to the queue.
+         * while the last element of the list is not "end" do:
+         * find all the neighbors of the last element of the currant list and enqueue that list.
+         * if the last element is "end" --> path found --> add to all paths.
+         */
+
         List<List<R>> allPaths = new LinkedList<>();
         Queue< LinkedList<R> > queue =new LinkedList();
         HashSet<R> visited = new HashSet<R>();
@@ -71,7 +80,18 @@ public class Bfs<T extends Igraph<R>, R> {
         return allPaths;
     }
 
+    /**
+     * given start node and end node in the graph, return the number
+     * of nodes available between these nodes, if not exist -> return 0
+     * @param start start node
+     * @param end end node
+     * @return list of all shortest paths (each paths is a list)
+     */
     public int getShortestDistance(R start, R end) {
+        /**
+         *iterate over all paths and find the size of the shortest one.
+         */
+
         int shortestDistance=0;
 
         List<List<R>> allPaths =this.findAllPaths(start, end);
@@ -88,7 +108,18 @@ public class Bfs<T extends Igraph<R>, R> {
         return shortestDistance;
     }
 
+
+    /**
+     * given start node and end node in the graph, return all shortest paths available
+     * between these nodes. if not exist -> empty list is returned
+     * @param start start node
+     * @param end end node
+     * @return list of all shortest paths (each paths is a list)
+     */
     public List<List<R>> findShortestPaths(R start, R end) {
+
+
+
         List<List<R>> allPaths =this.findAllPaths(start, end);
         int shortestDistance = this.getShortestDistance(start, end);
         List<List<R>> allShortestPaths = new LinkedList<>();

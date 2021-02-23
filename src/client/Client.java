@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Set;
 
 public class Client {
 
@@ -26,9 +27,9 @@ public class Client {
         Integer[][] source = {
                 {1,1,1},
                 {1,0,1},
-                {0,0,1},
+                {1,0,0},
                 {0,0,0},
-                {1,0,1},
+                {1,1,1},
 
         };
 
@@ -39,9 +40,9 @@ public class Client {
         toServer.writeObject("end index");
         toServer.writeObject(new Index(2,2));
 
-        // all SCC -1
+        // all SCC
         toServer.writeObject("all scc");
-        LinkedList<LinkedList<Index>> allScc = new LinkedList<LinkedList<Index>>((Collection<? extends LinkedList<Index>>) fromServer.readObject());
+        LinkedList<Set<Index>> allScc = new LinkedList<Set<Index>>((Collection<? extends Set<Index>>) fromServer.readObject());
         if (allScc.isEmpty()) {
             System.out.println("There are no connected indices in this matrix.");
         } else {
@@ -49,7 +50,7 @@ public class Client {
         }
 
 
-        // shortest path -2
+        // shortest path
 
         toServer.writeObject("shortest paths");
         try {
