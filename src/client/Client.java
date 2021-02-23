@@ -24,7 +24,7 @@ public class Client {
         ObjectInputStream fromServer = new ObjectInputStream(inputStream);
         ObjectOutputStream toServer = new ObjectOutputStream(outputStream);
 
-        Integer[][] source = {
+        int[][] source = {
                 {1,1,1},
                 {1,0,1},
                 {1,0,0},
