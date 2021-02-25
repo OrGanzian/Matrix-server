@@ -35,9 +35,9 @@ public class Bfs<T extends Igraph<R>, R> {
         /**
          * Algorithm explanation: Enhanced Bfs algorithm:
          * 1. enter "start" as list to the queue.
-         * while the last element of the list is not "end" do:
-         * find all the neighbors of the last element of the currant list and enqueue that list.
-         * if the last element is "end" --> path found --> add to all paths.
+         * 2.while the last element of the list is not "end" do: curr=queue head
+         * 3.find all the neighbors of the last element of the currant list and enqueue that list.
+         * 4.if the last element is "end" --> path found --> add to all paths.
          */
 
         List<List<R>> allPaths = new LinkedList<>();
